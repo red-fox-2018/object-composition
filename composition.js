@@ -80,6 +80,7 @@ class CookieFactory {
     return result;
   }
   static cookieRecomendation(day, cookies) {
+    let cookiesLessSugar = [];
     let result = ``;
     for (let c of cookies) {
       let sugarIsExist = false;
@@ -89,10 +90,10 @@ class CookieFactory {
         }
       }
       if (!sugarIsExist) {
-        return c.name;
+        cookiesLessSugar.push(c);
       }
     }
-    return;
+    return cookiesLessSugar;
   }
 }
 
@@ -105,10 +106,12 @@ let options = fs.readFileSync('new_cookies.txt', 'utf8').split('\n');
 let batch_of_cookies = CookieFactory.create(options);
 console.log(batch_of_cookies);
 
+console.log('################ SUGAR FREE FOOD ################');
 let sugarFreeFood = CookieFactory.cookieRecomendation('tuesday', batch_of_cookies);
 
-console.log('################ SUGAR FREE FOOD ################');
-console.log(sugarFreeFood);
+for (let i = 0; i < sugarFreeFood.length; i++) {
+  console.log(sugarFreeFood[i].name);
+}
 // chocolate butter 
 
 /*
