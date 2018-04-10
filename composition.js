@@ -116,6 +116,6 @@ console.log('=================================');
 let sugarFree = CookieFactory.cookieRecommendation("tuesday", batch_of_cookies);
 console.log('Sugar free cake(s):');
 
-for (let m = 0; m < sugarFree.length; m++) {
-  console.log(sugarFree[m].name);
-}
+sugarFree.forEach((sugarFree)=>{
+  console.log(sugarFree.name);
+});
