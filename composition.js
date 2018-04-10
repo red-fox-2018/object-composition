@@ -4,14 +4,29 @@ const option = fs.readFileSync('cookies.txt').toString().split('\n')
 option.pop()
 const ingredient = fs.readFileSync('ingredient.txt').toString().split('\n')
 ingredient.pop()
+
+
+class Ingredient {
+  constructor(nameParam, amountParam) {
+    this.name = nameParam;
+    this.amount = amountParam
+  }
+}
+
+
 for (var i = 0; i < ingredient.length; i++) {
   ingredient[i] = ingredient[i].split(' = ');
   ingredient[i][1] = ingredient[i][1].split(', ')
   for (var j = 0; j < ingredient[i][1].length; j++) {
-    let obj = {}
+    // let obj = {}
     ingredient[i][1][j] = ingredient[i][1][j].split(' : ')
     // ingredient[i][1][j][1] = ingredient[i][1][j][1].split(' ').unshift()
-    obj[ingredient[i][1][j][0]] = ingredient[i][1][j][1];
+    // obj[ingredient[i][1][j][0]] = ingredient[i][1][j][1];
+
+    let name = ingredient[i][1][j][0]
+    let amount = ingredient[i][1][j][1]
+    var obj = new Ingredient(name, amount)
+
     ingredient[i][1][j] = obj
   }
   // ingredient[i][1] = obj
@@ -80,10 +95,9 @@ class CookieFactory {
     for (var i = 0; i < cookies.length; i++) {
       let isSugarFree = true;
       let ingred = cookies[i].ingredient
-      for (var j in ingred) {
-        let re = /sugar/gi
-        if (re.test(Object.keys(ingred[j]))) {
-            isSugarFree = false
+      for (var j = 0; j < ingred.length; j++) {
+        if (ingred[j].name === 'sugar') {
+          isSugarFree = false
         }
       }
       if (isSugarFree) {
