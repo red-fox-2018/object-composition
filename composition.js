@@ -18,23 +18,13 @@ for (var i = 0; i < ingredient.length; i++) {
   ingredient[i] = ingredient[i].split(' = ');
   ingredient[i][1] = ingredient[i][1].split(', ')
   for (var j = 0; j < ingredient[i][1].length; j++) {
-    // let obj = {}
     ingredient[i][1][j] = ingredient[i][1][j].split(' : ')
-    // ingredient[i][1][j][1] = ingredient[i][1][j][1].split(' ').unshift()
-    // obj[ingredient[i][1][j][0]] = ingredient[i][1][j][1];
-
     let name = ingredient[i][1][j][0]
     let amount = ingredient[i][1][j][1]
     var obj = new Ingredient(name, amount)
-
     ingredient[i][1][j] = obj
   }
-  // ingredient[i][1] = obj
-  // console.log(ingredient[i][1]);
 }
-// console.log(option);
-// console.log(ingredient);
-// console.log(ingredient[0][1][0]);
 
 class Cookie {
   constructor(nameParam, ingParam) {
@@ -111,7 +101,7 @@ class CookieFactory {
 
 
 let batch_of_cookies = CookieFactory.create(option);
-console.log(batch_of_cookies);
+console.log(batch_of_cookies[0]);
 console.log('\nList of sugar free food:\n');
 let sugarFreeFoods = CookieFactory.cookieRecommendation('Tuesday', batch_of_cookies)
 for (var i = 0; i < sugarFreeFoods.length; i++) {
