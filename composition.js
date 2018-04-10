@@ -56,19 +56,18 @@ class CookieFactory  {
     options.forEach(function(cookie, idx){
       let arrCookie = cookie.split(" = ")
       let arrIngredient = CookieFactory.CreateIngredients(arrCookie[1])
-      let has_sugar = CookieFactory.hasSugar(arrCookie[1])
       let objOption;
 
       if(arrCookie[0] === 'peanut butter'){
-        objOption = new PeanutButter(arrCookie[0], arrIngredient, has_sugar)
+        objOption = new PeanutButter(arrCookie[0], arrIngredient[0], arrIngredient[1])
       } else if(arrCookie[0] === 'chocolate chip'){
-        objOption = new ChocolateChip(arrCookie[0], arrIngredient, has_sugar)
+        objOption = new ChocolateChip(arrCookie[0], arrIngredient[0], arrIngredient[1])
       } else if(arrCookie[0] === 'peanut butter crumbled'){
-        objOption = new PeanutButterCrumbled(arrCookie[0], arrIngredient, has_sugar)
+        objOption = new PeanutButterCrumbled(arrCookie[0], arrIngredient[0], arrIngredient[1])
       } else if(arrCookie[0] === 'chocolate chip crumbled'){
-        objOption = new ChocolateChipCrumbled(arrCookie[0], arrIngredient, has_sugar)
+        objOption = new ChocolateChipCrumbled(arrCookie[0], arrIngredient[0], arrIngredient[1])
       } else {
-        objOption = new OtherCookie(arrCookie[0], arrIngredient, has_sugar)
+        objOption = new OtherCookie(arrCookie[0], arrIngredient[0], arrIngredient[1])
       }
       listOfCookie.push(objOption)
     })
@@ -76,29 +75,22 @@ class CookieFactory  {
     return listOfCookie
   }
 
-  static hasSugar(ingredients){
+  static CreateIngredients (ingredients){
     let isHasSugar = false
+    let arrIngredient=[]
     let splitIngredients = ingredients.split(", ")
+
     splitIngredients.forEach( function(ingredient, idx){
       let split = ingredient.split(" : ")
       if(split[1].toLowerCase() === "sugar"){
         isHasSugar = true
       }
-    })
 
-    return isHasSugar
-  }
-
-  static CreateIngredients (ingredients){
-    let arrIngredient=[]
-    let splitIngredients = ingredients.split(", ")
-    splitIngredients.forEach( function(ingredient, idx){
-      let split = ingredient.split(" : ")
       let objIngredient = new Ingredient(split)
       arrIngredient.push(objIngredient)
     })
 
-    return arrIngredient
+    return [arrIngredient, isHasSugar]
   }
 
   static cookieRecommendation(day, cookieOptions){
