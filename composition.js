@@ -26,7 +26,7 @@ class Ingredients{
             let cookie = row.split("=")
             let cookieName = cookie[0]
             let cookieIngredients = cookie[1].split(",")
-            let ingredients = [] //gakepake kynya kalo gakpake hapus, biar gak pusing bacanya wkwk
+            let ingredients = [] 
             for(let i=0; i < cookieIngredients.length; i++){
                 let ingredient = cookieIngredients[i].split(":")
                 let ing = {}
@@ -139,10 +139,7 @@ class CookieFactory{
 
 let batch_of_cookies = CookieFactory.create(options)
 console.log(batch_of_cookies)
-//lw coba parseint ingredients nya hah yg mana? lw kan ada bwt class namanya ingredients
-//gw dah taro returnya lw coba panggil di sini
-//di console.log 
-// console.log("sugar free cakes are : ")
-// for(let i=0; i<sugarFreeFoods.length; i++){
-//     console.log(sugarFreeFoods[i].name)
-// }
+console.log("sugar free cakes are : ")
+for(let i=0; i<sugarFreeFoods.length; i++){
+    console.log(sugarFreeFoods[i].name)
+}
