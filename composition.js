@@ -40,7 +40,6 @@ class PeanutButter extends Cookie {
 
 class ChocholateChip extends Cookie {
     constructor(name, ingredients) {
-        
         super(name, ingredients)
         this.choc_chip_count = 200;
     }
