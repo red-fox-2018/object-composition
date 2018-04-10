@@ -29,6 +29,13 @@ class ChocolateChip extends Cookies {
   }
 }
 
+class OtherCookies extends Cookies {
+  constructor(name) {
+    super(name);
+    this.other_count = 150;
+  }
+}
+
 // driver code ----------------------------------
 
 class CookieFactory {
@@ -36,12 +43,12 @@ class CookieFactory {
   static create(options) {
     let result = [];
     for (let row of options) {
-      let name = row;
-      row = row.split(' ');
-      if (row[0] == 'peanut') {
-        result.push(new PeanutButter(name));
-      } else if (row[0] == 'chocolate') {
-        result.push(new ChocolateChip(name));
+      if (row == 'peanut butter') {
+        result.push(new PeanutButter(row));
+      } else if (row == 'chocolate chip') {
+        result.push(new ChocolateChip(row));
+      } else {
+        result.push(new OtherCookies(row));
       }
     }
     return result;
