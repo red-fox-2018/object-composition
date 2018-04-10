@@ -51,7 +51,6 @@ class CookieFactory {
     let result = [];
     for (let row of options) {
       row = row.split(' = ');
-
       if (row[0] == 'peanut butter') {
         let newListItem = [];
         let spareLine = row[1].split(',');
@@ -80,14 +79,20 @@ class CookieFactory {
     }
     return result;
   }
-  _formatter(line) {
-    let result = {};
-    let comp = line.split(',');
-    for (let prop of comp) {
-      let item = prop.trim().split(': ');
-      result[item[1]] = item[0];
+  static cookieRecomendation(day, cookies) {
+    let result = ``;
+    for (let c of cookies) {
+      let sugarIsExist = false;
+      for (let i of c.ingridients) {
+        if (i.name == 'sugar') {
+          sugarIsExist = true;
+        }
+      }
+      if (!sugarIsExist) {
+        return c.name;
+      }
     }
-    return result;
+    return;
   }
 }
 
@@ -99,6 +104,12 @@ let options = fs.readFileSync('new_cookies.txt', 'utf8').split('\n');
 
 let batch_of_cookies = CookieFactory.create(options);
 console.log(batch_of_cookies);
+
+let sugarFreeFood = CookieFactory.cookieRecomendation('tuesday', batch_of_cookies);
+
+console.log('################ SUGAR FREE FOOD ################');
+console.log(sugarFreeFood);
+// chocolate butter 
 
 /*
 [
