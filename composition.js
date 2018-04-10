@@ -74,19 +74,19 @@ class OtherCookie extends Cookie {
 class CookieFactory {
   static create(produce) {
     let arr = [];
-    for (let i = 0; i < produce.length; i++) {
-      if (produce[i][0] === 'Peanut butter') {
-        let peanutBut = new PeanutButter(produce[i][0], produce[i][1].split(','));
+    produce.forEach((produce) => {
+      if (produce[0] === 'Peanut butter') {
+        let peanutBut = new PeanutButter(produce[0], produce[1].split(','));
         arr.push(peanutBut);
-      } else if (produce[i][0] === 'Chocolate chip') {
-        let chocolateCh = new ChocolateChip(produce[i][0], produce[i][1].split(','));
+      } else if (produce[0] === 'Chocolate chip') {
+        let chocolateCh = new ChocolateChip(produce[0], produce[1].split(','));
         arr.push(chocolateCh);
       } else {
-        let otherCookies = new OtherCookie(produce[i][0], produce[i][1].split(','));
+        let otherCookies = new OtherCookie(produce[0], produce[1].split(','));
         otherCookies.bake();
         arr.push(otherCookies);
       }
-    }
+    });
     return arr;
   }
 
