@@ -3,14 +3,19 @@
 
 
 class Cookie {
-	constructor(name,ingredients) {
+	constructor(name,arr_ingredients) {
 		this.name=name;
 		this.status="mentah";
-		this.ingredients=ingredients;
+		//this.ingredients=;
+		this.ingredients = this.assignIngredients(arr_ingredients)
 	}
 
-	bake() {
-		this.status="selesai dimasak"
+	assignIngredients(arr_ingredients) {
+		var listIngred=[];
+		for(let j=0;j<arr_ingredients.length;j++) {
+			listIngred.push(new Ingredients(arr_ingredients[j].split(':')[1],arr_ingredients[j].split(':')[0]))
+		}
+		return listIngred
 	}
 }
 
@@ -29,9 +34,9 @@ class ChocolateChip extends Cookie {
 }
 
 class OtherCookie extends Cookie {
-	constructor(param_name,ingredients) {
-		super(param_name,ingredients);
-		this.name=param_name;
+	constructor(name,ingredients) {
+		super(name,ingredients);
+		this.name=name;
 		this.choc_chip_count=150;
 	}
 
@@ -43,19 +48,21 @@ class CookieFactory {
 		let output=[];
 		//console.log(options)
 		for(let i=0;i<options.length;i++) {
+			//console.log(listIngred)
 			var cookies=options[i].split(' = ')[0];
 			var ingred=options[i].split(' = ')[1].split(',');
-			var listIngred=[];
-			for(let j=0;j<ingred.length;j++) {
-				listIngred.push(new Ingredients(ingred[j].split(':')[1],ingred[j].split(':')[0]))
-			}
+			// var listIngred=[];
+			// for(let j=0;j<ingred.length;j++) {
+			// 	listIngred.push(new Ingredients(ingred[j].split(':')[1],ingred[j].split(':')[0]))
+			// }
 
 			if(cookies === 'peanut butter') {
-				output.push(new PeanutButter(cookies,listIngred))
+				// output.push(new PeanutButter(cookies,listIngred))
+				output.push(new PeanutButter(cookies, ingred))
 			}else if(cookies === 'chocolate chip') {
-				output.push(new ChocolateChip(cookies,listIngred))
+				output.push(new ChocolateChip(cookies,ingred))
 			}else{
-				output.push(new OtherCookie(cookies,listIngred))
+				output.push(new OtherCookie(cookies,ingred))
 			}
 		}
 		return output;
@@ -65,16 +72,17 @@ class CookieFactory {
 	static cookieRecomendation(day) {
 		var batchCookies=this.create(options);
 		//console.log(batchCookies[0].ingredients)
+		let sugarFree=[];
 		if(day==='tuesday') {
-			console.log('sugar free cakes are:')
 			for(let i=0;i<batchCookies.length;i++) {
 				for(let j=0;j<batchCookies[i].ingredients.length;j++){
 					if(batchCookies[i].ingredients[j].name === ' sugar') {
-						console.log(batchCookies[i].name)
+						sugarFree.push(batchCookies[i].name)
 					}
 				}
 			}
 		}
+		return sugarFree;
 	}
 
 }	
@@ -101,6 +109,10 @@ var options=fs.readFileSync('cookiesIngredients.txt').toString().split('r\n');
 //console.log(options);
 //(console.log(CookieFactory.create(options)[0]));
 var batchCookies=CookieFactory.create(options);
+let sugarFreeFoods=CookieFactory.cookieRecomendation('tuesday');
 console.log(batchCookies)
-CookieFactory.cookieRecomendation('tuesday');
+console.log('sugar free cakes are:');
+for(let i=0;i<sugarFreeFoods.length;i++) {
+	console.log(sugarFreeFoods[i])
+}
 //let peanutButter=new PeanutButter();
